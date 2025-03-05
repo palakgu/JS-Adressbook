@@ -71,6 +71,16 @@ class AddressBook {
                 console.error("Update failed:", error.message);
             }
         }
+        deleteContact(firstName) {
+            let initialLength = this.contacts.length;
+            this.contacts = this.contacts.filter(c => c.firstName !== firstName);
+    
+            if (this.contacts.length < initialLength) {
+                console.log(`Contact '${firstName}' deleted successfully!`);
+            } else {
+                console.log("Contact not found!");
+            }
+        }
 
     displayContacts() {
         console.log("Address Book:", this.contacts);
@@ -81,7 +91,7 @@ class AddressBook {
 let addressBook = new AddressBook();
 try {
     let contact1 = new Contact("Abhishek", "Kumar", "Piplani", "Bhopal", "Madhya Pradesh", "400001", "9876543210", "Abhi7654@example.com");
-    let contact2 = new Contact("Abhishek", "Kumar", "Piplani", "Bhopal", "Madhya Pradesh", "400001", "9876543210", "Abhi7654@example.com");
+    let contact2 = new Contact("Abhi", "Kumar", "Piplani", "Bhopal", "Madhya Pradesh", "400001", "9876543210", "Abhi7654@example.com");
 
     addressBook.addContact(contact1);
     addressBook.addContact(contact2);
@@ -90,6 +100,8 @@ try {
     addressBook.editContact("Abhishek", { city: "Chakia" });
 
     
+    addressBook.displayContacts();
+    addressBook.deleteContact("Abhi");
     addressBook.displayContacts();
 } catch (error) {
     console.error(error.message);
