@@ -44,6 +44,33 @@ class AddressBook {
             throw new Error("Invalid Contact!");
         }
     }
+    editContact(firstName, updatedDetails) {
+            let contact = this.contacts.find(c => c.firstName === firstName);
+            if (!contact) {
+                console.log("Contact not found!");
+                return;
+            }
+    
+            try {
+                let updatedContact = new Contact(
+                    updatedDetails.firstName || contact.firstName,
+                    updatedDetails.lastName || contact.lastName,
+                    updatedDetails.address || contact.address,
+                    updatedDetails.city || contact.city,
+                    updatedDetails.state || contact.state,
+                    updatedDetails.zip || contact.zip,
+                    updatedDetails.phone || contact.phone,
+                    updatedDetails.email || contact.email
+                );
+    
+                let index = this.contacts.indexOf(contact);
+                this.contacts[index] = updatedContact;
+                console.log("Contact updated successfully!");
+    
+            } catch (error) {
+                console.error("Update failed:", error.message);
+            }
+        }
 
     displayContacts() {
         console.log("Address Book:", this.contacts);
@@ -59,6 +86,10 @@ try {
     addressBook.addContact(contact1);
     addressBook.addContact(contact2);
 
+    addressBook.displayContacts();
+    addressBook.editContact("Abhishek", { city: "Chakia" });
+
+    
     addressBook.displayContacts();
 } catch (error) {
     console.error(error.message);
